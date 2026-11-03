@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6d28d9" />
+  <title>It's My Birthday! 🎂</title>
+  <style>
+    :root {
+      --purple: #6d28d9;
+      --pink: #db2777;
+      --ink: #312e81;
+      --muted: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 16px;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, #fbcfe8 0, transparent 28%),
+        radial-gradient(circle at 90% 85%, #c4b5fd 0, transparent 30%),
+        linear-gradient(135deg, #fff1f2, #ede9fe);
+    }
+
+    .card {
+      width: min(100%, 460px);
+      padding: clamp(24px, 6vw, 38px);
+      text-align: center;
+      background: rgba(255, 255, 255, .94);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 28px;
+      box-shadow: 0 22px 70px rgba(76, 29, 149, .16);
+    }
+
+    .confetti { font-size: 1.5rem; letter-spacing: .4rem; }
+    .cake {
+      margin: 8px 0;
+      font-size: 76px;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+
+    .date {
+      display: inline-block;
+      margin: 4px 0 12px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      color: #9d174d;
+      background: #fce7f3;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--purple);
+      font-size: clamp(2rem, 8vw, 2.7rem);
+      line-height: 1.1;
+    }
+
+    .intro {
+      max-width: 34ch;
+      margin: 14px auto 24px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .gift {
+      padding: 22px 18px;
+      border-radius: 20px;
+      background: #faf5ff;
+      border: 1px solid #ede9fe;
+    }
+
+    .gift h2 { margin: 0 0 8px; font-size: 1.35rem; }
+    .gift p { margin: 0; color: var(--muted); line-height: 1.55; }
+
+    .number-label {
+      margin-top: 20px !important;
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .number {
+      display: none;
+      margin: 8px 0 14px !important;
+      color: #0f766e !important;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 13px;
+      color: white;
+      background: linear-gradient(100deg, var(--purple), var(--pink));
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(109, 40, 217, .2);
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+    button:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 3px; }
+
+    #message {
+      min-height: 1.5em;
+      margin-top: 10px;
+      color: #6d28d9;
+      font-size: .92rem;
+      font-weight: 650;
+    }
+
+    .thanks { margin: 20px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="confetti" aria-hidden="true">✦ ✧ ✦</div>
+    <div class="cake" aria-hidden="true">🎂</div>
+    <div class="date">NOVEMBER 3</div>
+    <h1>It's My Birthday!</h1>
+    <p class="intro">
+      Today is my special day! Your wishes mean a lot.
+      If you'd like to send a little birthday gift, you can do it through Telebirr.
+    </p>
+
+    <section class="gift" aria-labelledby="gift-title">
+      <h2 id="gift-title">A little birthday gift 🎁</h2>
+      <p>Send your gift to my Telebirr number:</p>
+
+      <!-- Replace the placeholder below with your Telebirr phone number. -->
+      <p class="number" id="phone-number">0931184112</p>
+
+      <button id="copy-button" type="button">Copy Telebirr number</button>
+      <p id="message" role="status" aria-live="polite"></p>
+      <p>Open Telebirr, choose Send Money, and enter the number above.</p>
+    </section>
+
+    <p class="thanks">
+      Thank you for being part of my day. Your kind wishes are already a gift! 💜
+    </p>
+  </main>
+
+  <script>
+    const numberElement = document.getElementById("phone-number");
+    const copyButton = document.getElementById("copy-button");
+    const message = document.getElementById("message");
+
+    copyButton.addEventListener("click", async () => {
+      const number = numberElement.textContent.trim();
+
+      if (number === "YOUR TELEBIRR NUMBER") {
+        message.textContent = "Add your Telebirr number in the HTML first.";
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(number);
+        message.textContent = "Number copied! Open Telebirr to send your gift.";
+      } catch {
+        message.textContent = "Please select and copy the number above.";
+      }
+    });
+  </script>
+</body>
+</html>
